@@ -84,7 +84,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;p
  <div id="mappingStatus" class="small muted" style="margin-top:8px">No mapping PDF loaded this session.</div></div>
  <div class="card"><h3>Mapping coverage</h3><div id="mappingStats"></div></div>
 </section>
-<section class="view active" id="capacity"><div class="card"><h3>Touch Bag Finder</h3><div class="muted small">Scanner + touch only. Counts show how many relevant SKUs remain at each level.</div><div class="filterMode"><button id="finderNeed" class="active">NEEDS PICK</button><button id="finderAll">ALL / CAPACITY WALK</button></div><div class="touchFilters"><select id="animalFilter"><option value="">ANIMAL / TYPE</option></select><select id="brandFilter"><option value="">BRAND</option></select><select id="weightFilter"><option value="">WEIGHT</option></select><select id="productFilter"><option value="">BAG / PRODUCT</option></select></div><button id="openSelectedBag" class="productPick" style="width:100%;padding:15px;font-weight:900" disabled>OPEN SELECTED BAG</button><div id="selectedBagInfo" class="small muted" style="margin-top:8px"></div></div>
+<section class="view" id="capacity"><div class="card"><h3>Touch Bag Finder</h3><div class="muted small">Scanner + touch only. Counts show how many relevant SKUs remain at each level.</div><div class="filterMode"><button id="finderNeed" class="active">NEEDS PICK</button><button id="finderAll">ALL / CAPACITY WALK</button></div><div class="touchFilters"><select id="animalFilter"><option value="">ANIMAL / TYPE</option></select><select id="brandFilter"><option value="">BRAND</option></select><select id="weightFilter"><option value="">WEIGHT</option></select><select id="productFilter"><option value="">BAG / PRODUCT</option></select></div><button id="openSelectedBag" class="productPick" style="width:100%;padding:15px;font-weight:900" disabled>OPEN SELECTED BAG</button><div id="selectedBagInfo" class="small muted" style="margin-top:8px"></div></div>
  <div class="card"><h2>Capacity Mode</h2><div class="muted">Bluetooth scanner is always listening. Scan bag → choose capacity → immediately scan the next bag. No need to tap the UPC field between scans.</div></div>
  <div class="card row"><input id="manualScan" class="grow" inputmode="numeric" placeholder="Optional manual UPC / SKU entry"><button class="primary" id="manualScanBtn">GO</button></div>
  <div class="card"><div class="grid"><div class="stat"><span>Known capacities</span><b id="capCount">0</b></div><div class="stat"><span>Known UPCs</span><b id="upcCount">0</b></div><div class="stat"><span>Master SKUs</span><b id="masterCount">0</b></div></div></div>
@@ -160,7 +160,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;p
  <div class="card"><h2>Product Data · Import / Export</h2><div class="muted">Product Data = SKU Master + UPC Key + learned bag/shelf relationships. Export it as one portable JSON file and append/update it later without losing existing products.</div></div>
  <div class="card grid"><button id="exportProductData" class="primary">EXPORT PRODUCT DATA JSON</button><label class="btn">IMPORT PRODUCT DATA JSON<input id="importProductData" type="file" accept=".json" style="display:none"></label><button id="exportJson">EXPORT ALL JSON</button><button id="exportUpcCsv">EXPORT UPC KEY CSV</button><button id="exportCapCsv">EXPORT CAPACITY CSV</button><label class="btn">IMPORT JSON<input id="importJson" type="file" accept=".json" style="display:none"></label><label class="btn">IMPORT UPC CSV<input id="importUpc" type="file" accept=".csv,text/csv" style="display:none"></label></div>
 </section>
-<section class="view" id="rack">
+<section class="view active" id="rack">
  <div class="card">
   <h2>Rack Mode</h2>
   <div class="card" style="margin:8px 0 14px">
@@ -289,7 +289,7 @@ document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
  window.scrollTo({top:0,left:0,behavior:'instant'});
  try{render()}catch(err){console.error(err);alert('Tab opened, but refresh failed: '+(err?.message||err))}
 });
-function activeView(){return document.querySelector('.view.active')?.id||'capacity'}
+function activeView(){return document.querySelector('.view.active')?.id||'rack'}
 let bagMatchUPC='',bagVerifySKU='';
 let scanBuf='',scanTimer=0,scanLastKeyAt=0,scanLastCode='',scanLastAt=0;
 function setScannerStatus(t){const x=$('scannerStatus');if(x)x.textContent=t}
